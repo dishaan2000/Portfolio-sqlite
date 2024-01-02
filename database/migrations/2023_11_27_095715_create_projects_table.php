@@ -16,7 +16,14 @@ return new class extends Migration
             $table->timestamps();
             $table->string('project');
             $table->string('role')->nullable();
-            $table->string('mere_info')->nullable();
+            $table->text('mere_info')->nullable();
+
+            $table->string('titel_1')->nullable();
+            $table->string('titel_2')->nullable();
+            $table->string('titel_3')->nullable();
+            $table->string('titel_4')->nullable();
+            $table->string('titel_last')->nullable();
+
             $table->text('description');
             $table->text('description_1')->nullable();
             $table->text('description_2')->nullable();

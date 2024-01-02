@@ -11,8 +11,8 @@ class project extends Model
     use HasFactory;
     protected $guarded=[];
 
-    public function getImageUrl()
-    {
-        return Storage::url($this->image);
-    }
+    // public function getImageUrl()
+    // {
+    //     return Storage::url($this->image);
+    // }
 }

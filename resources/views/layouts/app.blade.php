@@ -8,7 +8,14 @@
     {{-- <link rel="stylesheet" href="/public/css/app.css"> --}}
     <link rel="stylesheet" href="{{ asset('css/app.css') }}" type="text/css"> 
     <link rel="shortcut icon" href="{{ asset('images/Icon.svg') }}">
-    <script src="your-js-file.js"></script>
+    <script defer src="{{ asset('js/script.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bangers&family=Courier+Prime&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="bg-gradient">
     <header id="header" class="header position-relative flex align-items margin-auto">
@@ -23,7 +30,7 @@
         <nav id="topNav" class="topnav">
             <a href="{{ route('about') }}" class="tilted-border">Origin Story</a>
             <a href="{{ route('study-cases') }}" class="tilted-border">Cases</a>
-            <a href="{{ route('contact') }}" class="tilted-border bg-yellow color-black">Kontakt</a>
+            <a href="{{ route('contact') }}" class="tilted-border bg-yellow color-black" id="kontaktIndex">Kontakt</a>
         </nav>
     </header>
 
@@ -32,20 +39,5 @@
             @yield('content')
         </div>
     </main> 
-
-    <footer>  
-        <img src="{{ asset('images/footer.svg') }}" class="footer-om-mig position-absolute" alt="Bygninger i bunden af siden"/>
-        <nav class="footer-nav text-center block margin-auto">
-            <h3 class="fontsize-h2 fontfamily-comicfont">Mangler du en Front-ender?</h3>
-            <a href="mailto:Dishaan@Selvarajah.dk" target="_blank">
-                <img src="{{ asset('images/envelope-solid.svg') }}" alt="Mail"/>
-            </a>
-            <a href="https://www.linkedin.com/in/dishaan-selvarajah-5748bb21a/" target="_blank">
-                <img src="{{ asset('images/linkedin-brands.svg') }}" alt="linkedin logo"/>
-            </a>
-        </nav>
-        <div class="overlay-om-mig position-absolute block width100"></div>
-    </footer> 
-
 </body>
 </html>

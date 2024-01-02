@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Forms\Components\RichEditor;
 
 class ProjectResource extends Resource
 {
@@ -31,29 +32,157 @@ class ProjectResource extends Resource
                     ->columnSpan('full'),
                 Forms\Components\TextInput::make('role')
                     ->maxLength(255),
-                Forms\Components\TextInput::make('mere_info')
-                    ->maxLength(255),
-                
-                Forms\Components\FileUpload::make('image_mobile'),
-                Forms\Components\FileUpload::make('image_desktop'),
-                Forms\Components\TextInput::make('description')
-                    ->required()
-                    ->maxLength(255),
+                RichEditor::make('mere_info')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
+                Forms\Components\FileUpload::make('image_mobile')
+                    ->image()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('1:1.6')
+                    ->imageEditor(),
+                Forms\Components\FileUpload::make('image_desktop')
+                    ->image()
+                    ->imageResizeMode('cover')
+                    ->imageCropAspectRatio('2:1')
+                    ->imageEditor(),
+                RichEditor::make('description')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
                 FileUpload::make('image'),
-                Forms\Components\TextInput::make('description_1')
-                ->maxLength(255),
-                Forms\Components\FileUpload::make('image_1'),
-                Forms\Components\TextInput::make('description_2')
-                ->maxLength(255),
-                Forms\Components\FileUpload::make('image_2'),
-                Forms\Components\TextInput::make('description_3')
-                ->maxLength(255),
-                Forms\Components\FileUpload::make('image_3'),
-                Forms\Components\TextInput::make('description_4')
-                ->maxLength(255),
-                Forms\Components\FileUpload::make('image_4'),
-                Forms\Components\TextInput::make('description_last')
-                ->maxLength(255),
+                Forms\Components\TextInput::make('titel_1')
+                ->maxLength(255)
+                ->columnSpan('full'),  
+                RichEditor::make('description_1')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
+                Forms\Components\FileUpload::make('image_1')                    
+                ->image()
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('2:1')
+                ->imageEditor(),     
+                Forms\Components\TextInput::make('titel_2')
+                ->maxLength(255)
+                ->columnSpan('full'),      
+                RichEditor::make('description_2')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
+                Forms\Components\FileUpload::make('image_2')
+                ->image()
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('2:1')
+                ->imageEditor(),
+                Forms\Components\TextInput::make('titel_3')
+                ->maxLength(255)
+                ->columnSpan('full'),
+                RichEditor::make('description_3')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
+                Forms\Components\FileUpload::make('image_3')
+                ->image()
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('2:1')
+                ->imageEditor(),
+                Forms\Components\TextInput::make('titel_4')
+                ->maxLength(255)
+                ->columnSpan('full'),
+                RichEditor::make('description_4')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
+                Forms\Components\FileUpload::make('image_4')
+                ->image()
+                ->imageResizeMode('cover')
+                ->imageCropAspectRatio('2:1')
+                ->imageEditor(),
+                Forms\Components\TextInput::make('titel_last')
+                ->maxLength(255)
+                ->columnSpan('full'),
+                RichEditor::make('description_last')
+                ->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ]),
             ]);
     }
 
@@ -76,12 +205,6 @@ class ProjectResource extends Resource
                 Tables\Columns\TextColumn::make('mere_info')
                     ->searchable(),
                 ImageColumn::make('image'),
-                ImageColumn::make('image_1'),
-                ImageColumn::make('image_2'),
-                ImageColumn::make('image_3'),
-                ImageColumn::make('image_4'),
-                ImageColumn::make('image_mobile'),
-                ImageColumn::make('image_desktop'),
             ])
             ->filters([
                 //

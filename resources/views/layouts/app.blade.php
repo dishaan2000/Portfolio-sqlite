@@ -21,7 +21,7 @@
     <header id="header" class="header position-relative flex align-items margin-auto">
         <div class="icon-and-burger">
             <a href="/" class="header-icon">
-                <img src="{{ asset('images/icon.svg') }}" alt="Favicon af logo">
+                <img src="{{ asset('images/Icon.svg') }}" alt="Favicon af logo">
             </a>
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                 <i class="fa fa-bars"></i>

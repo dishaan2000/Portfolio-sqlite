@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('role')->nullable();
             $table->text('mere_info')->nullable();
 
+            // titles for project sections
             $table->string('titel_1')->nullable();
             $table->string('titel_2')->nullable();
             $table->string('titel_3')->nullable();
             $table->string('titel_4')->nullable();
             $table->string('titel_last')->nullable();
 
+            // project descriptions
             $table->text('description');
             $table->text('description_1')->nullable();
             $table->text('description_2')->nullable();
@@ -31,6 +33,7 @@ return new class extends Migration
             $table->text('description_4')->nullable();
             $table->text('description_last')->nullable();
 
+            // project images
             $table->string('image')->nullable();    
             $table->string('image_1')->nullable();    
             $table->string('image_2')->nullable();    
@@ -50,3 +53,7 @@ return new class extends Migration
         Schema::dropIfExists('projects');
     }
 };
+
+
+
+

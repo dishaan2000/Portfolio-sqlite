@@ -6,7 +6,6 @@ const nameChanger = document.querySelector(".name-changer");
 const kontakt = document.querySelector("#kontaktIndex");
 const skift = document.querySelector(".skift-knap");
 
-console.log('hej');
 
 kontakt.addEventListener("mouseenter", () => {
   AvatarWithOutMask.style.bottom = "-100vh";

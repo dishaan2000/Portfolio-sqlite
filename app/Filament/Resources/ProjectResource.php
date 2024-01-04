@@ -238,4 +238,3 @@ class ProjectResource extends Resource
         ];
     }    
 }
-

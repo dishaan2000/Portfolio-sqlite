@@ -29,7 +29,9 @@
                     <div class="fontfamily-pfont color-white">
                         {{ strip_tags($project->description) }}
                     </div>
-                    <a href="{{ route('project.show', ['project' => $project->project]) }}" class="linkedin-knap tilted-border kontakt-tilt bg-yellow color-black textdecoration fontfamily-comicfont">
+                    <a 
+                    href="{{ route('project.show', ['project' => $project->project]) }}" 
+                    class="linkedin-knap tilted-border kontakt-tilt bg-yellow color-black textdecoration fontfamily-comicfont">
                         <div>View Details</div>
                     </a>
                 </div>

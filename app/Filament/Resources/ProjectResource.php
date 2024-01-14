@@ -3,18 +3,20 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
-use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Models\Project;
-use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\FileUpload;
 use Filament\Tables\Columns\ImageColumn;
-use Filament\Forms\Components\RichEditor;
+use Filament\Tables\Columns\ToggleColumn;
+
+use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 
 class ProjectResource extends Resource
 {
@@ -24,187 +26,135 @@ class ProjectResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\TextInput::make('project')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpan('full'),
-                Forms\Components\TextInput::make('role')
-                    ->maxLength(255),
-                RichEditor::make('mere_info')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                Forms\Components\FileUpload::make('image_mobile')
-                    ->image()
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('1:1.6')
-                    ->imageEditor(),
-                Forms\Components\FileUpload::make('image_desktop')
-                    ->image()
-                    ->imageResizeMode('cover')
-                    ->imageCropAspectRatio('2:1')
-                    ->imageEditor(),
-                RichEditor::make('description')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                FileUpload::make('image'),
-                Forms\Components\TextInput::make('titel_1')
-                ->maxLength(255)
-                ->columnSpan('full'),  
-                RichEditor::make('description_1')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                Forms\Components\FileUpload::make('image_1')                    
-                ->image()
-                ->imageResizeMode('cover')
-                ->imageCropAspectRatio('2:1')
-                ->imageEditor(),     
-                Forms\Components\TextInput::make('titel_2')
-                ->maxLength(255)
-                ->columnSpan('full'),      
-                RichEditor::make('description_2')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                Forms\Components\FileUpload::make('image_2')
-                ->image()
-                ->imageResizeMode('cover')
-                ->imageCropAspectRatio('2:1')
-                ->imageEditor(),
-                Forms\Components\TextInput::make('titel_3')
-                ->maxLength(255)
-                ->columnSpan('full'),
-                RichEditor::make('description_3')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                Forms\Components\FileUpload::make('image_3')
-                ->image()
-                ->imageResizeMode('cover')
-                ->imageCropAspectRatio('2:1')
-                ->imageEditor(),
-                Forms\Components\TextInput::make('titel_4')
-                ->maxLength(255)
-                ->columnSpan('full'),
-                RichEditor::make('description_4')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-                Forms\Components\FileUpload::make('image_4')
-                ->image()
-                ->imageResizeMode('cover')
-                ->imageCropAspectRatio('2:1')
-                ->imageEditor(),
-                Forms\Components\TextInput::make('titel_last')
-                ->maxLength(255)
-                ->columnSpan('full'),
-                RichEditor::make('description_last')
-                ->toolbarButtons([
-                    'attachFiles',
-                    'blockquote',
-                    'bold',
-                    'bulletList',
-                    'codeBlock',
-                    'italic',
-                    'link',
-                    'orderedList',
-                    'redo',
-                    'strike',
-                    'underline',
-                    'undo',
-                ]),
-            ]);
+        return $form->schema([
+            Tabs::make('Tabs')
+                ->columnSpan('full')
+                ->tabs([
+                    Tabs\Tab::make('Preview')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('project')
+                            ->required()
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+                        Forms\Components\FileUpload::make('image_mobile')
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('1:1.6')
+                            ->imageEditor(),
+                        Forms\Components\FileUpload::make('image_desktop')
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:1')
+                            ->imageEditor(),
+                        MarkdownEditor::make('description')
+                            ->required()
+                            ->columnSpan('full'),
+                        Toggle::make('active')
+                            ->onColor('success')
+                            ->onIcon('heroicon-s-document-text')
+                            ->offColor('info')
+                            ->offIcon('heroicon-s-pencil-square')
+                    ]),
+                    Tabs\Tab::make('Start')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\Select::make('role_id')
+                            ->relationship('role', 'name')
+                            ->required()
+                            ->columnSpan('full')
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->required()
+                                    ->maxLength(255),
+                            ]),
+                        MarkdownEditor::make('mere_info')
+                        ->columnSpan('full'),
+                        TextInput::make('github_url')
+                            ->url()
+                            ->suffixIcon('heroicon-m-globe-alt'),
+                        TextInput::make('other_url')
+                            ->url()
+                            ->suffixIcon('heroicon-m-globe-alt'),
+                        FileUpload::make('image')
+                            ->columnSpan('full'),
+                    ]),
+                    Tabs\Tab::make('Section 1')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('titel_1')
+                            ->maxLength(255)
+                            ->columnSpan('full'),  
+                        MarkdownEditor::make('description_1'),
+                        Forms\Components\FileUpload::make('image_1')                    
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:1')
+                            ->imageEditor(),     
+                    ]),
+                    Tabs\Tab::make('Section 2')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('titel_2')
+                            ->maxLength(255)
+                            ->columnSpan('full'),      
+                        MarkdownEditor::make('description_2'),
+                        Forms\Components\FileUpload::make('image_2')
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:1')
+                            ->imageEditor(),  
+                    ]),
+                    Tabs\Tab::make('Section 3')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('titel_3')
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+                        MarkdownEditor::make('description_3'),
+                        Forms\Components\FileUpload::make('image_3')
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:1')
+                            ->imageEditor(),
+                    ]),
+                    Tabs\Tab::make('Section 4')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('titel_4')
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+                        MarkdownEditor::make('description_4'),
+                        Forms\Components\FileUpload::make('image_4')
+                            ->image()
+                            ->imageResizeMode('cover')
+                            ->imageCropAspectRatio('2:1')
+                            ->imageEditor(),
+                    ]),
+                    Tabs\Tab::make('Last section')
+                        ->columns(2)
+                        ->schema([
+                        Forms\Components\TextInput::make('titel_last')
+                            ->maxLength(255)
+                            ->columnSpan('full'),
+                        MarkdownEditor::make('description_last')
+                            ->columnSpan('full'),
+                    ]),
+                ])
+        ]);
     }
-
+    
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('project')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('role')
+                Tables\Columns\TextColumn::make('role.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('mere_info')
                     ->searchable(),
-                ImageColumn::make('image'),
+                ToggleColumn::make('active')
             ])
             ->filters([
                 //

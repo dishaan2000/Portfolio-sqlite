@@ -11,8 +11,9 @@
                 <h1 class="fontfamily-comicfont fontsize-h1">{{ $project->project }}</h1>
                 <p class="fontfamily-pfont">Role: {{ $project->role }}</p>
                 <div class="fontfamily-pfont">
-                    Beskrivelse: {{ strip_tags($project->mere_info) }}
+                    Beskrivelse: {{ ($project->mere_info) }}
                 </div>
+                {{ ($project->mere_info) }}
             </div>
             <div>
                 @if ($project->image)

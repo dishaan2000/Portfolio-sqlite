@@ -15,8 +15,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('project');
-            $table->string('role')->nullable();
+            $table->foreignId('role_id')->constrained('roles')->cascadeOnDelete();
             $table->text('mere_info')->nullable();
+
+            $table->string('github_url')->nullable();
+            $table->string('other_url')->nullable();
+
+            $table->boolean('active');
 
             $table->string('titel_1')->nullable();
             $table->string('titel_2')->nullable();

@@ -37,7 +37,7 @@
         @endforeach
     </section>
     @else
-        <p>No projects found.</p>
+        <p class="text-center fontsize-h1 fontfamily-comicfont color-white">No projects found.</p>
     @endif
     <x-footer/>
 @endsection

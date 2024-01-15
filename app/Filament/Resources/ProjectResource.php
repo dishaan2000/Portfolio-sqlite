@@ -14,6 +14,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -68,7 +69,7 @@ class ProjectResource extends Resource
                                     ->required()
                                     ->maxLength(255),
                             ]),
-                        MarkdownEditor::make('mere_info')
+                        MarkdownEditor::make('description_intro')
                         ->columnSpan('full'),
                         TextInput::make('github_url')
                             ->url()
@@ -76,69 +77,25 @@ class ProjectResource extends Resource
                         TextInput::make('other_url')
                             ->url()
                             ->suffixIcon('heroicon-m-globe-alt'),
-                        FileUpload::make('image')
+                        FileUpload::make('image_intro')
                             ->columnSpan('full'),
                     ]),
-                    Tabs\Tab::make('Section 1')
+                    Repeater::make('Sections')
                         ->columns(2)
+                        ->relationship( )
                         ->schema([
-                        Forms\Components\TextInput::make('titel_1')
+                        Forms\Components\TextInput::make('titel')
+                            ->relationship('section', 'titel')
                             ->maxLength(255)
                             ->columnSpan('full'),  
-                        MarkdownEditor::make('description_1'),
+                        MarkdownEditor::make('description')
+                            ->relationship('section', 'description'),
                         Forms\Components\FileUpload::make('image_1')                    
                             ->image()
                             ->imageResizeMode('cover')
                             ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),     
-                    ]),
-                    Tabs\Tab::make('Section 2')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_2')
-                            ->maxLength(255)
-                            ->columnSpan('full'),      
-                        MarkdownEditor::make('description_2'),
-                        Forms\Components\FileUpload::make('image_2')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),  
-                    ]),
-                    Tabs\Tab::make('Section 3')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_3')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_3'),
-                        Forms\Components\FileUpload::make('image_3')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),
-                    ]),
-                    Tabs\Tab::make('Section 4')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_4')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_4'),
-                        Forms\Components\FileUpload::make('image_4')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),
-                    ]),
-                    Tabs\Tab::make('Last section')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_last')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_last')
-                            ->columnSpan('full'),
+                            ->imageEditor()
+                            ->relationship('section', 'image'),
                     ]),
                 ])
         ]);

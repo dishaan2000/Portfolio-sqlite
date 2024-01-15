@@ -16,4 +16,9 @@ class Project extends Model
         return $this->belongsTo(Role::class);
     }
 
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
+    }
+
 }

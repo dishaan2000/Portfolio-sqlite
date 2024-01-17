@@ -14,6 +14,8 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Builder;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -33,41 +35,32 @@ class ProjectResource extends Resource
                     Tabs\Tab::make('Preview')
                         ->columns(2)
                         ->schema([
-                        Forms\Components\TextInput::make('project')
-                            ->required()
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        Forms\Components\FileUpload::make('image_mobile')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('1:1.6')
-                            ->imageEditor(),
-                        Forms\Components\FileUpload::make('image_desktop')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),
-                        MarkdownEditor::make('description')
-                            ->required()
-                            ->columnSpan('full'),
-                        Toggle::make('active')
-                            ->onColor('success')
-                            ->onIcon('heroicon-s-document-text')
-                            ->offColor('info')
-                            ->offIcon('heroicon-s-pencil-square')
-                    ]),
+                            TextInput::make('project')
+                                ->required()
+                                ->maxLength(255)
+                                ->columnSpan('full'),
+                            FileUpload::make('image_mobile')
+                                ->image()
+                                ->imageResizeMode('cover')
+                                ->imageCropAspectRatio('1:1.6')
+                                ->imageEditor(),
+                            FileUpload::make('image_desktop')
+                                ->image()
+                                ->imageResizeMode('cover')
+                                ->imageCropAspectRatio('2:1')
+                                ->imageEditor(),
+                            MarkdownEditor::make('description')
+                                ->required()
+                                ->columnSpan('full'),
+                            Toggle::make('active')
+                                ->onColor('success')
+                                ->onIcon('heroicon-s-document-text')
+                                ->offColor('info')
+                                ->offIcon('heroicon-s-pencil-square'),
+                        ]),
                     Tabs\Tab::make('Start')
                         ->columns(2)
                         ->schema([
-                        Forms\Components\Select::make('role_id')
-                            ->relationship('role', 'name')
-                            ->required()
-                            ->columnSpan('full')
-                            ->createOptionForm([
-                                Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->maxLength(255),
-                            ]),
                         MarkdownEditor::make('mere_info')
                         ->columnSpan('full'),
                         TextInput::make('github_url')
@@ -76,73 +69,29 @@ class ProjectResource extends Resource
                         TextInput::make('other_url')
                             ->url()
                             ->suffixIcon('heroicon-m-globe-alt'),
-                        FileUpload::make('image')
-                            ->columnSpan('full'),
-                    ]),
-                    Tabs\Tab::make('Section 1')
+                        ]),
+                    Tabs\Tab::make('Sections')
                         ->columns(2)
                         ->schema([
-                        Forms\Components\TextInput::make('titel_1')
-                            ->maxLength(255)
-                            ->columnSpan('full'),  
-                        MarkdownEditor::make('description_1'),
-                        Forms\Components\FileUpload::make('image_1')                    
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),     
-                    ]),
-                    Tabs\Tab::make('Section 2')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_2')
-                            ->maxLength(255)
-                            ->columnSpan('full'),      
-                        MarkdownEditor::make('description_2'),
-                        Forms\Components\FileUpload::make('image_2')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),  
-                    ]),
-                    Tabs\Tab::make('Section 3')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_3')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_3'),
-                        Forms\Components\FileUpload::make('image_3')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),
-                    ]),
-                    Tabs\Tab::make('Section 4')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_4')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_4'),
-                        Forms\Components\FileUpload::make('image_4')
-                            ->image()
-                            ->imageResizeMode('cover')
-                            ->imageCropAspectRatio('2:1')
-                            ->imageEditor(),
-                    ]),
-                    Tabs\Tab::make('Last section')
-                        ->columns(2)
-                        ->schema([
-                        Forms\Components\TextInput::make('titel_last')
-                            ->maxLength(255)
-                            ->columnSpan('full'),
-                        MarkdownEditor::make('description_last')
-                            ->columnSpan('full'),
-                    ]),
-                ])
+                            Builder::make('sections')
+                                ->columnSpan('full')
+                                ->blocks([
+                                    Builder\Block::make('section')
+                                        ->schema([
+                                            TextInput::make('title')->required(),
+                                            MarkdownEditor::make('description'),
+                                            FileUpload::make('image')
+                                                ->image()
+                                                ->imageResizeMode('cover')
+                                                ->imageCropAspectRatio('2:1')
+                                                ->imageEditor(),
+                                        ]),
+                                ]),
+                        ]),
+                ]),
         ]);
     }
+
     
     public static function table(Table $table): Table
     {

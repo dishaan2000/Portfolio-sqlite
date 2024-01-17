@@ -13,6 +13,7 @@
     @if(isset($projects) && count($projects) > 0)
     <section>
         @foreach ($projects as $project)
+            @if ($project->active)
             <article class="display-grid grid studycases-bottompadding">
                 <div class="device-section">
                     <div class="phone-section">
@@ -26,14 +27,16 @@
                 </div>
                 <div>
                     <h2 class="fontfamily-comicfont fontsize-h2 color-white">{{ $project->project }}</h2>
+                    <p class="fontfamily-pfont color-white">Role: {{ $project->role->name }}</p>
                     <div class="fontfamily-pfont color-white">
-                        {{ strip_tags($project->description) }}
+                        {{ ($project->description) }}
                     </div>
                     <a href="{{ route('project.show', ['project' => $project->project]) }}" class="linkedin-knap tilted-border kontakt-tilt bg-yellow color-black textdecoration fontfamily-comicfont">
                         <div>View Details</div>
                     </a>
                 </div>
             </article>
+            @endif
         @endforeach
     </section>
     @else

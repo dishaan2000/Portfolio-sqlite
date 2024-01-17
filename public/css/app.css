@@ -740,6 +740,16 @@ span {
   to { transform: scale(1.2); }
 }
 
+.link-url{
+  display: flex;
+}
+
+.link-url > a > img{
+  height: 40px;
+  margin-right: 10px;
+}
+
+
 .projekt {
   position: relative;
   width: 100%;
